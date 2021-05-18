@@ -10,12 +10,7 @@
 
 
 // Global variables
-var planet,
-	astronaut,
-	radius,
-	scene,
-	camera,
-	renderer;
+var planet, astronaut, radius, scene, camera, renderer;
 
 // Set scene
 radius = 5;
