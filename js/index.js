@@ -9,17 +9,22 @@
 //TODO: API stuff (fetch info from website that we make / or find one online)
 
 
+// Global variables
+var planet,
+	astronaut,
+	radius,
+	scene,
+	camera,
+	renderer;
 
 // Set scene
-var planet;
-var astronaut;
-var radius = 5;
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+radius = 5;
+scene = new THREE.Scene();
+camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.z = 5;
 
 // Set rendering
-const renderer = new THREE.WebGLRenderer();
+renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
@@ -37,7 +42,7 @@ function planet(r) {
 	scene.add( planet );
 }
 
-// Generate astronaut
+// Generates astronaut at a random location
 function astro() {
 	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
 	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
