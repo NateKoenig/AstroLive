@@ -11,6 +11,9 @@
 
 
 // Set scene
+var planet;
+var astronaut;
+var radius = 5;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 camera.position.z = 5;
@@ -20,25 +23,28 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.innerWidth, window.innerHeight );
 document.body.appendChild( renderer.domElement );
 
-// Generate planet
-const planetGeometry = new THREE.SphereGeometry( 5, 32, 32 );
-const planetMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const planet = new THREE.Mesh( planetGeometry, planetMaterial );
-planet.position.set( 0, 0, 0 );
-scene.add( planet );
-
-// Generate astronaut
-var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
-var astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
-astronaut.position.set( 0, 6, 0 );
-scene.add( astronaut );
-
-
 // Set controls
 const controls = new THREE.OrbitControls( camera, renderer.domElement );
 controls.autoRotate = true;
 controls.update();
+
+// Generates planet given a radius
+function planet(r) {
+	var planetGeometry = new THREE.SphereGeometry( r, 32, 32 );
+	var planetMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+	planet = new THREE.Mesh( planetGeometry, planetMaterial );
+	planet.position.set( 0, 0, 0 );
+	scene.add( planet );
+}
+
+// Generate astronaut
+function astro() {
+	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
+	astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
+	astronaut.position.set( 0, 6, 0 );
+	scene.add( astronaut );
+}
 
 // Animation / actual running of project
 const animate = function () {
@@ -52,5 +58,11 @@ const animate = function () {
 	renderer.render( scene, camera );
 }
 
-// Run the project
-animate();
+// Driver
+function init() {
+	planet(radius);
+	astro();
+	animate();
+}
+
+init();
