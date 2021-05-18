@@ -16,7 +16,7 @@ var planet, astronaut, radius, scene, camera, renderer;
 radius = 5;
 scene = new THREE.Scene();
 camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-camera.position.z = 5;
+camera.position.z = 20;
 
 // Set rendering
 renderer = new THREE.WebGLRenderer();
