@@ -6,9 +6,9 @@
 
 
 
-//TODO: API stuff (fetch info from website that we make / or find one online)
-var wrapAPIKey = "key goes here";
-//mine: rIJ903B7HBgAJ756wzYMm5MBrfW96REQ
+// API info
+var wrapAPIKey = "your key goes here";
+
 
 
 // Global variables
@@ -35,7 +35,6 @@ controls.autoRotate = true;
 controls.update();
 
 // Fetches astronauts from wrapapi, update text + add astronauts when appropriate
-// TODO: FIX--------------------------------------------------------------------------------------------------------
 function fetchAstros() {
 	$.ajax({
 		url: "https://wrapapi.com/use/nako48/google/stockprice/0.0.1",
