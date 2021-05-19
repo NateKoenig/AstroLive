@@ -7,7 +7,7 @@
 
 
 // API info
-var wrapAPIKey = "your key goes here";
+var wrapAPIKey = "place your key here";
 
 
 
@@ -15,7 +15,7 @@ var wrapAPIKey = "your key goes here";
 var planet, astronaut, radius, scene, camera, renderer;
 
 // Track number of astronauts
-var curAstros = 19; // as of May 19, 2021
+var curAstros = 10; // as of May 19, 2021
 var numAstros;
 
 // Set scene
@@ -62,15 +62,6 @@ function planet(r) {
 	scene.add( planet );
 }
 
-// Generates astronaut at a random location
-function astro() {
-	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
-	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
-	astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
-	astronaut.position.set( randomCoordinate(), randomCoordinate(), randomCoordinate() );
-	scene.add( astronaut );
-}
-
 // Generates a random coordinate for the astronaut
 function randomCoordinate() {
 	var magnitude = Math.floor(Math.random() * 6); // get magnitude
@@ -82,6 +73,15 @@ function randomCoordinate() {
 	else {
 		return magnitude;
 	}
+}
+
+// Generates astronaut at a random location
+function astro() {
+	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
+	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
+	astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
+	astronaut.position.set( 0, randomCoordinate(), 0 );
+	scene.add( astronaut );
 }
 
 // Adds n number of astronauts
