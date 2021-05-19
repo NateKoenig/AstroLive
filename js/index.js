@@ -2,20 +2,21 @@
 // #AstroLive Web Application
 // Nate Koenig, May 18
 //
-// Astro data taken from https://en.wikipedia.org/wiki/NASA_Astronaut_Corps#:~:text=ranks%20and%20positions-,Astronauts,(Group%2016)%20or%20later.
+// Astro data taken from https://www.google.com/finance/quote/ARKX:BATS
 
 
 
 //TODO: API stuff (fetch info from website that we make / or find one online)
 var wrapAPIKey = "key goes here";
+//mine: rIJ903B7HBgAJ756wzYMm5MBrfW96REQ
 
 
 // Global variables
 var planet, astronaut, radius, scene, camera, renderer;
 
 // Track number of astronauts
-var curAstros;
-var numAstros = 48; // as of May 19, 2021
+var curAstros = 19; // as of May 19, 2021
+var numAstros;
 
 // Set scene
 radius = 5;
@@ -37,17 +38,18 @@ controls.update();
 // TODO: FIX--------------------------------------------------------------------------------------------------------
 function fetchAstros() {
 	$.ajax({
-		url: "https://wrapapi.com/use/nako48/wiki/astro/0.0.2?wrapAPIKey=rIJ903B7HBgAJ756wzYMm5MBrfW96REQ",
+		url: "https://wrapapi.com/use/nako48/google/stockprice/0.0.1",
 		method: "POST",
 		data: {
 			"wrapAPIKey": wrapAPIKey
 		}
 	}).done(function(data) {
 		if (data.success) {
-			numAstros = data["data"]["#totalAstros"];
+			numAstros = Math.floor(data["data"]["#price"]);
 		}
-		if (curAstros != numAstros) {
-			growAstros();
+		var difference = Math.abs(curAstros - numAstros);
+		if (difference != 0) {
+			growAstros(difference);
 		}
 	});
 }
@@ -63,12 +65,24 @@ function planet(r) {
 
 // Generates astronaut at a random location
 function astro() {
-	// FIX: Make random position -------------------------------------------------
 	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
 	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
 	astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
-	astronaut.position.set( 0, 6, 0 );
+	astronaut.position.set( randomCoordinate(), randomCoordinate(), randomCoordinate() );
 	scene.add( astronaut );
+}
+
+// Generates a random coordinate for the astronaut
+function randomCoordinate() {
+	var magnitude = Math.floor(Math.random() * 6); // get magnitude
+	var chance = Math.floor(Math.random() * 2); // chance that it's + or -
+
+	if (chance == 1) {
+		return magnitude * -1;
+	}
+	else {
+		return magnitude;
+	}
 }
 
 // Adds n number of astronauts
