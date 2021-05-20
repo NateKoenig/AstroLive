@@ -7,15 +7,14 @@
 
 
 // API info
-var wrapAPIKey = "place your key here";
-
+var wrapAPIKey = "put your key here";
 
 
 // Global variables
 var planet, astronaut, radius, scene, camera, renderer;
 
 // Track number of astronauts
-var curAstros = 10; // as of May 19, 2021
+var curAstros = 0; // start with zero
 var numAstros;
 
 // Set scene
@@ -44,11 +43,13 @@ function fetchAstros() {
 		}
 	}).done(function(data) {
 		if (data.success) {
-			numAstros = Math.floor(data["data"]["#price"]);
-		}
-		var difference = Math.abs(curAstros - numAstros);
-		if (difference != 0) {
-			growAstros(difference);
+			//console.log(Math.floor(data["data"]["price"].replace('$', '')));
+			numAstros = Math.floor(data["data"]["price"].replace('$', ''));
+
+			var difference = Math.abs(curAstros - numAstros);
+			if (difference != 0) {
+				growAstros(difference);
+			}
 		}
 	});
 }
@@ -80,14 +81,14 @@ function astro() {
 	var astroGeometry = new THREE.BoxGeometry( 0.2, 0.2, 0.2 );
 	var astroMaterial = new THREE.MeshBasicMaterial( { color: 0xf5fffa} );
 	astronaut = new THREE.Mesh ( astroGeometry, astroMaterial );
-	astronaut.position.set( 0, randomCoordinate(), 0 );
+	astronaut.position.set( randomCoordinate(), randomCoordinate(), randomCoordinate() );
 	scene.add( astronaut );
 }
 
 // Adds n number of astronauts
 function growAstros(n) {
 	for (var i = 0; i < n; i++) {
-		scene.add(astro());
+		astro();
 	}
 }
 
